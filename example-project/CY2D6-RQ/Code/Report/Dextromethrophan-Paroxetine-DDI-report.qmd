@@ -1,0 +1,141 @@
+---
+  title: "Dextramethorphan-Paroxetine-DDI report"
+author: "esqlabs GmbH"
+date: "`r Sys.Date()`"
+format:
+  # reduce page margin
+  pdf:
+  toc: true # display toc
+toc-depth: 3 # display more levels in toc
+toc-title: Table of Content # override default "Content" toc title
+number-sections: true # add number to sections
+colorlinks: true # links format
+fig-format: png # fig output format
+fig-dpi: 300 # plot quality
+fig-width: 18 # plot quality
+fig-asp: 0.66 # h/w ratio
+fig-pos: "H" # ensure plots don't move to bottom of doc
+fig-align: center # plots are centered by default
+geometry:
+  - top=25mm
+tbl-cap-location: top
+fontfamily: "lmodern" # better font
+include-in-header:
+  \usepackage{typearea}
+  text: |
+execute:
+  echo: false # do not show code chunks
+warning: false # do not print warning
+cache: false # do not use cache unless specified in chunks
+bibliography: references.bib
+link-citations: TRUE
+reference-section-title: "References"
+editor_options:
+  chunk_output_type: console
+editor: visual
+---
+
+  ```{r setup, message=FALSE, include = FALSE}
+library(here)
+setwd(here())
+
+source("Scenarios/initEsqlabsProject.R")
+projectConfiguration <- initEsqlabsProject()
+```
+
+```{r runSimulations, echo = FALSE}
+# If `TRUE`, results will be loaded
+loadPreSimulatedResults <- FALSE
+
+# Path to the folder where pre-computed results are located
+resultsSubFolder <- file.path(
+  "2023-06-19 11-11")
+# Path to the folder where simulation results whould be stored. If `NULL`,
+# default results folder is used.
+# outputFolder <- file.path(
+#   projectConfiguration$outputFolder,
+#   "SimulationResults", "Trial simulation",
+#   format(Sys.time(), "%F %H-%M")
+# )
+outputFolder <- NULL
+
+setTestParameters <- FALSE
+
+scenarioResults <- simulateScenarios(
+  projectConfiguration = projectConfiguration,
+  setTestParameters = setTestParameters,
+  loadPreSimulatedResults = loadPreSimulatedResults,
+  scenarioNames = NULL,
+  loadResultsFolder = resultsSubFolder,
+  saveResultsFolder = outputFolder
+)
+```
+
+```{r loadData, message=FALSE, include = FALSE}
+observedData <- esqlabsR::loadObservedDataFromPKML(projectConfiguration)
+
+# Write observed data names into excel. Required only once
+#writeDataNamesIntoExcel(observedData, projectConfiguration = projectConfiguration)
+```
+
+```{r createPlots}
+plotGridNames <- NULL
+allPlots <- createPlotsFromExcel(simulatedScenarios = scenarioResults$simulatedScenarios,
+                                 observedData = observedData,
+                                 projectConfiguration = projectConfiguration,
+                                 plotGridNames = plotGridNames)
+```
+
+```{r resultsOrigin, echo=FALSE, results='asis'}
+if (loadPreSimulatedResults){
+  cat("This report has been created with simulation results loaded from results folder ",
+      resultsSubFolder, ".\n")
+} else {
+  cat("This report has been created with running the simulations.")
+}
+```
+
+# Introduction
+
+This document describes the development of a Dextramethorphan-Paroxetine model for 
+simulation of Drug-Drug-Interactions (DDI). The models of Dextramethorphan and 
+Paroxetine have been previously developed and published by [@rüdesheim2022]. 
+Qualification of the models for OSPS Version 11.2 is shown in Reports XXX.
+
+# Methods
+
+## Software
+
+The qualification is performed with OSPS [version
+                                          11.2.142](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v11.2.142).
+
+## Qualification process
+
+1.  Import project snapshot "paroxetine-model.json" in PK-Sim v11.2.
+
+2.  The snapshot contains 33 simulations. All simulations were exported
+to `*.pkml` for simulation in R.
+
+3.  All observed data from the project created with version 11.2 were
+exported `*.pkml` for loading in R.
+
+4.  Simulations were simulated in R and the results visually compared to
+the results reported in the original publication.
+
+## Model consolidation
+
+During conversion of projects created with versions before 11, a
+separate expression profile is created for each individual. To ensure
+that all individuals are using the same expression, expression profiles
+of the same protein were compared. All expression profiles for the same
+protein were equal. Therefore, the same expression profile was set in
+every individual, and the remaining profiles were removed.
+
+# Results
+
+Comparison of time-concentration profiles with observed data are
+presented in the following:
+
+  ```{r plotFigures}
+allPlots
+```

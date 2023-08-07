@@ -1,0 +1,217 @@
+---
+title: "Paroxetine qualification report"
+author: "esqlabs GmbH"
+date: "`r Sys.Date()`"
+format: 
+  pdf: 
+    # reduce page margin
+    toc: true # display toc
+    toc-depth: 3 # display more levels in toc
+    toc-title: Table of Content # override default "Content" toc title
+    number-sections: true # add number to sections
+    colorlinks: true # links format
+    fig-format: png # fig output format
+    fig-dpi: 300 # plot quality
+    fig-width: 18 # plot quality
+    fig-asp: 0.66 # h/w ratio
+    fig-pos: "H" # ensure plots don't move to bottom of doc
+    fig-align: center # plots are centered by default
+    geometry:
+      - top=25mm
+      - bottom=25mm
+      - left=20mm
+      - right=20mm
+    tbl-cap-location: top
+    fontfamily: "lmodern" # better font
+    include-in-header: 
+      text: |
+        \usepackage{typearea}
+execute: 
+  echo: false # do not show code chunks
+  warning: false # do not print warning
+  cache: false # do not use cache unless specified in chunks
+bibliography: references.bib
+link-citations: TRUE
+reference-section-title: "References"
+editor_options: 
+  chunk_output_type: console
+editor: visual
+---
+
+```{r setup, message=FALSE, include = FALSE}
+library(here)
+setwd(here())
+
+source("Scenarios/initEsqlabsProject.R")
+projectConfiguration <- initEsqlabsProject()
+```
+
+```{r runSimulations, echo = FALSE}
+# If `TRUE`, results will be loaded
+loadPreSimulatedResults <- FALSE
+
+# Path to the folder where pre-computed results are located
+resultsSubFolder <- file.path(
+                              "2023-07-23 21-57")
+# Path to the folder where simulation results whould be stored. If `NULL`,
+# default results folder is used.
+# outputFolder <- file.path(
+#   projectConfiguration$outputFolder,
+#   "SimulationResults", "Trial simulation",
+#   format(Sys.time(), "%F %H-%M")
+# )
+outputFolder <- NULL
+
+setTestParameters <- FALSE
+
+scenarioResults <- simulateScenarios(
+  projectConfiguration = projectConfiguration,
+  setTestParameters = setTestParameters,
+  loadPreSimulatedResults = loadPreSimulatedResults,
+  scenarioNames = list("Sindrup (1992) - paroxetine hydrochloride, 30 mg, po, md, n=8 (PM)",
+"Sindrup (1992) - paroxetine hydrochloride, 30 mg, po, md, n=9 (EM)",
+"Massaroti (2005) - paroxetine hydrochloride, 20 mg, po, n=28 (EM)",
+"Segura (2005) - paroxetine hydrochloride, 20 mg, po, md, n=7 (EM)",
+"Calvo (2004) - paroxetine hydrochloride, 20 mg, po, md, n=25 (EM)",
+"Belle (2002) - paroxetine hydrochloride, 20 mg, po, md, n=22 (EM)",
+"McClelland (1985) - paroxetine hydrochloride, 70 mg, po, n=5 (EM)",
+"Schoedel (2012) - paroxetine hydrochloride, 20 mg, po, md, n=14 (EM)",
+"Yasui-Furukori (2007) - paroxetine hydrochloride, 20 mg, po, n=12 (AS=1.25)",
+"Yasui-Furukori (2007) - paroxetine hydrochloride, 20 mg, po, n=13 (EM)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=4 (AS=0.5)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=4 (AS=2)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=5 (AS=1.5)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=11 (AS=1)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=3)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=2)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=0)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=2 (AS=1)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=4 (AS=0.5)",
+"Lund (1982) - paroxetine hydrochloride, 23 mg, iv, n=1 (EM), D",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), A",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), B",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), C",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), A",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), B",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), C",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), D",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=6 (AS=2)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=1 (AS=0)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=3 (AS=0.5)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=6 (AS=1.25)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=1 (AS=0.75)",
+"van der Lee (2007) - paroxetine hydrochloride, 20 mg, po, md, n=26 (EM)"
+    ),
+  loadResultsFolder = resultsSubFolder,
+  saveResultsFolder = outputFolder
+)
+```
+
+```{r loadData, message=FALSE, include = FALSE}
+projectConfiguration$dataFolder <- file.path(projectConfiguration$dataFolder, "Paroxetine")
+observedData <- esqlabsR::loadObservedDataFromPKML(projectConfiguration)
+
+# Write observed data names into excel. Required only once
+#writeDataNamesIntoExcel(observedData, projectConfiguration = projectConfiguration)
+```
+
+```{r createPlots}
+plotGridNames <- list("Sindrup (1992) - paroxetine hydrochloride, 30 mg, po, md, n=8 (PM)",
+"Sindrup (1992) - paroxetine hydrochloride, 30 mg, po, md, n=9 (EM)",
+"Massaroti (2005) - paroxetine hydrochloride, 20 mg, po, n=28 (EM)",
+"Segura (2005) - paroxetine hydrochloride, 20 mg, po, md, n=7 (EM)",
+"Calvo (2004) - paroxetine hydrochloride, 20 mg, po, md, n=25 (EM)",
+"Belle (2002) - paroxetine hydrochloride, 20 mg, po, md, n=22 (EM)",
+"McClelland (1985) - paroxetine hydrochloride, 70 mg, po, n=5 (EM)",
+"Schoedel (2012) - paroxetine hydrochloride, 20 mg, po, md, n=14 (EM)",
+"Yasui-Furukori (2007) - paroxetine hydrochloride, 20 mg, po, n=12 (AS=1.25)",
+"Yasui-Furukori (2007) - paroxetine hydrochloride, 20 mg, po, n=13 (EM)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=4 (AS=0.5)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=4 (AS=2)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=5 (AS=1.5)",
+"Chen (2015) - paroxetine hydrochloride, 25 mg, po, n=11 (AS=1)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=3)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=2)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=3 (AS=0)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=2 (AS=1)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=4 (AS=0.5)",
+"Lund (1982) - paroxetine hydrochloride, 23 mg, iv, n=1 (EM), D",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), A",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), B",
+"Lund (1982) - paroxetine hydrochloride, 28 mg, iv, n=1 (EM), C",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), A",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), B",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), C",
+"Lund (1982) - paroxetine hydrochloride, 45 mg, po, n=1 (EM), D",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=6 (AS=2)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=1 (AS=0)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=3 (AS=0.5)",
+"Yoon (2000) - paroxetine hydrochloride, 40 mg, po, n=6 (AS=1.25)",
+"Mürdter (2016) - paroxetine hydrochloride, 40 mg, po, md, n=1 (AS=0.75)",
+"van der Lee (2007) - paroxetine hydrochloride, 20 mg, po, md, n=26 (EM)")
+#plotGridNames <- NULL
+allPlots <- createPlotsFromExcel(simulatedScenarios = scenarioResults$simulatedScenarios,
+                                 observedData = observedData,
+                                 projectConfiguration = projectConfiguration,
+                                 plotGridNames = plotGridNames)
+```
+
+```{r resultsOrigin, echo=FALSE, results='asis'}
+if (loadPreSimulatedResults){
+  cat("This report has been created with simulation results loaded from results folder ",
+      resultsSubFolder, ".\n")
+} else {
+  cat("This report has been created with running the simulations.")
+}
+```
+
+# Introduction
+
+This document describes the qualification of a published paroxetine
+physiologically-based pharmacokinetics (PBPK) model for use with the
+Open Systems Pharmacology Software (OSPS) Version 11.2.
+
+The PBPK model has been developed with OSPS version 10 and published by
+[@rüdesheim2022]. Model snapshot was downloaded on 21.07.2023 from the
+model
+[repository](https://github.com/Clinical-Pharmacy-Saarland-University/Paroxetine-Model).
+As of 21.07.2023, no model version qualified for OSP version 11.2 is
+publicly available.
+
+# Methods
+
+## Software
+
+The qualification is performed with OSPS [version
+11.2.142](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v11.2.142).
+
+## Qualification process
+
+1.  Import project snapshot "paroxetine-model.json" in PK-Sim v11.2.
+
+2.  The snapshot contains 33 simulations. All simulations were exported
+    to `*.pkml` for simulation in R.
+
+3.  All observed data from the project created with version 11.2 were
+    exported `*.pkml` for loading in R.
+
+4.  Simulations were simulated in R and the results visually compared to
+    the results reported in the original publication.
+
+## Model consolidation
+
+During conversion of projects created with versions before 11, a
+separate expression profile is created for each individual. To ensure
+that all individuals are using the same expression, expression profiles
+of the same protein were compared. All expression profiles for the same
+protein were equal. Therefore, the same expression profile was set in
+every individual, and the remaining profiles were removed.
+
+# Results
+
+Comparison of time-concentration profiles with observed data are
+presented in the following:
+
+```{r plotFigures}
+allPlots
+```
