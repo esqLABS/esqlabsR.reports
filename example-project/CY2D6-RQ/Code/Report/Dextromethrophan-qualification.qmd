@@ -57,6 +57,7 @@ editor:
     wrap: 72
 editor_options:
   chunk_output_type: console
+bibliography: references.bib
 ---
 
 ```{r setup, message=FALSE, include = FALSE, eval = !params$createOnlyStaticContent}
@@ -206,23 +207,138 @@ if (params$setTestParameters) {
 
 # Introduction
 
-This document describes the qualification of a published dextromethorphan physiologically-based pharmacokinetics (PBPK) model for use with the Open Systems Pharmacology Software (OSPS) Version 11.2.
+This document describes the qualification of a published
+dextromethorphan physiologically-based pharmacokinetics (PBPK) model for
+use with the Open Systems Pharmacology Software (OSPS) Version 11.2.
 
-The PBPK model has been developed with OSPS version 9.1 and published by @rüdesheim2022. Model snapshots have been downloaded on 16.06.2023 from the Open Systems Pharmacology (OSP) [repository](https://github.com/Open-Systems-Pharmacology/Dextromethorphan-Model). As of 16.06.2023, no model version qualified for OSP version 11.2 is publicly available.
+The PBPK model has been developed with OSPS version 9.1 and published by
+[@rüdesheim2022] Model snapshots have been downloaded on 16.06.2023 from
+the Open Systems Pharmacology (OSP)
+[repository](https://github.com/Open-Systems-Pharmacology/Dextromethorphan-Model).
+As of 16.06.2023, no model version qualified for OSP version 11.2 is
+publicly available.
 
 # Methods
 
 ## Software
 
-For recreating the original results from the publication, OSPS [version 9.1](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v9.1) was used. The qualification is done with OSPS [version 11.2.142](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v11.2.142).
+For recreating the original results from the publication, OSPS [version
+9.1](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v9.1)
+was used. The qualification is done with OSPS [version
+11.2.142](https://github.com/Open-Systems-Pharmacology/PK-Sim/releases/tag/v11.2.142).
 
 ## Drug-gene-interaction
 
-The model is intended to be used in drug-drug interactions (DDI) simulations with dextromethorphan as a CYP2D6 victim. Drug-gene interactions (DGI) to describe variabilities of CYP2D6 activity are modeled as variations of the catalytic rate constant $k_{cat}$.
+The model is intended to be used in drug-drug interactions (DDI)
+simulations with dextromethorphan as a CYP2D6 victim. Drug-gene
+interactions (DGI) to describe variabilities of CYP2D6 activity are
+modeled as variations of the catalytic rate constant $k_{cat}$.
+Following values are used:
+
+-   0 1/min (poor metabolizer) in simulations:
+
+    -   Capon 1996 PM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=6
+
+    -   Gorski 2004 PM, 30 mg dextromethorphan hydromide
+        (capsule/solution), n=1
+
+    -   Schadel 1995 PM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=4
+
+-   32.91 1/min in simulations:
+
+    -   Qiu 2016 IM, 15 mg dextromethorphan hydrobromide
+        (capsule/solution), n=6, AS=0.5
+
+    -   Yamazaki 2017 IM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=12, AS=0.5
+
+-   90.89 1/min in simulations:
+
+    -   Antecip Bioventures EM, 60 mg dextromethorphan hydrobromide
+        multiple dose (capsule/solution), n=10
+
+    -   Armani 2017 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=20
+
+    -   Capon 1996 EM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=6
+
+    -   Duedahl 2005 EM, 0.5 mg/kg dextromethorphan base (infusion),
+        n=24
+
+    -   Dumond 2010 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=23
+
+    -   Edwards 2017 EM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=48
+
+    -   Ermer 2015 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=30
+
+    -   Feld 2013 EM, 60 mg dextromethorphan hydrobromide
+        (capsule/solution), n=17
+
+    -   Gorski 2004 EM, 30 mg dextromethorphan hydromide
+        (capsule/solution), n=11
+
+    -   Kakuda 2014 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=14
+
+    -   Khalilieh 2018 EM, 30 mg dextromethorphan hydrobromide
+        (cocktail), n=20
+
+    -   Nakashima 2007 EM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=24
+
+    -   Nyunt 2008 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=12
+
+    -   Sager 2014 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=10
+
+    -   Schadel 1995 EM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=5
+
+    -   Stage 2018 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=12
+
+    -   Tennezé 1999 EM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=36
+
+-   96.64 1/min in simulations:
+
+    -   Storelli 2018 IM, 5 mg dextromethorphan base (capsule/solution),
+        n=16
+
+-   115.17 1/min in simulations:
+
+    -   Gazzaz 2018 NM, 30 mg dextromethorphan hydrobromide (cocktail),
+        n=30, AS=1.25
+
+    -   Qiu 2016 NM, 15 mg dextromethorphan hydrobromide
+        (capsule/solution), n=6, AS=1.25
+
+-   242.45 1/min in simulations:
+
+    -   Qiu 2016 NM, 15 mg dextromethorphan hydrobromide
+        (capsule/solution), n=6, AS=2
+
+    -   Storelli 2018 NM, 5 mg dextromethorphan base (capsule/solution),
+        n=17, AS=2
+
+    -   Yamazaki 2017 NM, 30 mg dextromethorphan hydrobromide
+        (capsule/solution), n=11, AS=2
+
+    -   Zawertailo 2009 NM, 3 mg/kg dextromethorphan hydrobromide
+        (capsule/solution), n=6, AS=2
 
 ## Qualification process
 
-1.  Import project snapshot "dextromethorphan_aggregated_simulations.json" in PK-Sim v9.1. During the import processes, the following error is thrown:
+1.  Import project snapshot
+    "dextromethorphan_aggregated_simulations.json" in PK-Sim v9.1.
+    During the import processes, the following error is thrown:
 
     `Information: Loading Project from snapshot file 'xxx.json'`
 
@@ -234,31 +350,123 @@ The model is intended to be used in drug-drug interactions (DDI) simulations wit
 
     `Information: Project loaded from snapshot`\
     \
-    Investigation of the project snapshot showed that an Individual "Gorski 2004 PM, n=1" is present in the project and is not used in any simulation. It was concluded that the missing individual "Gorski 2004 (96) PM, n=1" referenced in the simulation should be "Gorski 2004 PM, n=1". The snapshot was modified to reference the present individual. After the modification, the snapshot was successfully loaded.
+    Investigation of the project snapshot showed that an Individual
+    "Gorski 2004 PM, n=1" is present in the project and is not used in
+    any simulation. It was concluded that the missing individual "Gorski
+    2004 (96) PM, n=1" referenced in the simulation should be "Gorski
+    2004 PM, n=1". The snapshot was modified to reference the present
+    individual. After the modification, the snapshot was successfully
+    loaded.
 
-2.  The snapshot contains 29 simulations. All simulations were exported to `*.pkml` for simulation in R.
+2.  The snapshot contains 29 simulations. All simulations were exported
+    to `*.pkml` for simulation in R.
 
-3.  Import project snapshot "dextromethorphan_aggregated_simulations.json" in PK-Sim v11.2. During import, the following warning for each loaded simulation is shown:\
-    `Warning: Snapshot parameter 'Ontogeny factor GI' was not found in 'CYP3A4'.` All simulations were exported to `*.pkml` for simulation in R.
+3.  Import project snapshot
+    "dextromethorphan_aggregated_simulations.json" in PK-Sim v11.2.
+    During import, the following warning for each loaded simulation is
+    shown:\
+    `Warning: Snapshot parameter 'Ontogeny factor GI' was not found in 'CYP3A4'.`
+    All simulations were exported to `*.pkml` for simulation in R.
 
-4.  All observed data from the project created with version 11.2 were exported \`\*.pkml\` for loading in R.
+4.  All observed data from the project created with version 11.2 were
+    exported \`\*.pkml\` for loading in R.
 
-5.  Simulations created with versions 9.1 and 11.2 were simulated and the results visually compared.
+5.  Simulations created with versions 9.1 and 11.2 were simulated and
+    the results visually compared.
 
 ## Model consolidation
 
-During conversion of projects created with versions before 11, a separate expression profile is created for each individual. To ensure that all individuals are using the same expression, expression profiles of the same protein were compared. All expression profiles for the same protein were equal. Therefore, the same expression profile was set in every individual, and the remaining profiles were removed.
+During the conversion of projects created with versions before 11, a
+separate expression profile is created for each individual. To ensure
+that all individuals are using the same expression, expression profiles
+of the same protein were compared. All expression profiles for the same
+protein were equal, except for the expression profile for enzyme UGT2B15
+used in the simulation "**Gorski 2004 EM, 30 mg dextromethorphan
+hydromide (capsule/solution), n=11**". The simulation is the only one
+which applies the "Reference concentration" of the enzyme of 1 µmol/l,
+all other simulations apply a Reference concentration of 2.48 µmol/l.
+Until stated otherwise by the authors of the original publication
+(<https://github.com/Open-Systems-Pharmacology/Dextromethorphan-Model/issues/4>),
+it is assumed that it has been forgotten to change the reference
+concentration from the default value of 1 µmol/l.
+
+The same expression profile of a particular protein (including UGT2B15)
+was set in every individual, and the remaining profiles were removed.
 
 # Results
 
-Comparison of time-concentration profiles generated with the different software versions are presented in the following:
+Comparison of time-concentration profiles generated with the different
+software versions are presented in the following:
 
-!!! When doing it in the loop, no caption is created (Figure xxx: blablabl). Why?
-```{r printFigures, results = 'asis', eval = !params$createOnlyStaticContent}
-for (plotName in names(allPlots)){
+```{r printFigures, results = 'asis', eval = TRUE}
+for (plotName in sort(names(allPlots))){
   plotName <- gsub(pattern = "\\", "_", plotName, fixed = TRUE)
   plotName <- gsub(pattern = "/", "_", plotName, fixed = TRUE)
   filePath <- file.path(getwd(), "Figures", paste0(plotName, ".png"))
   cat("![", plotName, "](", filePath,")\n")
 }
 ```
+
+# Conclusion
+
+All simulations created and executed with software version 11.2 produced
+identical results as the original version 9.1 except for:
+
+-   Gorski 2004 EM, 30 mg dextromethorphan hydromide (capsule/solution),
+    n=11
+    -   Dextrorphan concentrations predicted with version 11.2 are
+        slightly higher than those predicted with version 9.1 and are
+        closer to the observed data. This is due to the fact that
+        version 11.2 uses the expression profile with the reference
+        concentration of UGT2B15 set to 2.48 µmol/l for the simulation
+        as opposed to the project version 9.1, where the reference
+        concentration is 1 µmol/l (see [Model consolidation] for
+        details).
+
+For the following scenarios, simulation results with both versions
+differ (estimated through visual comparison) from the results reported
+in the original publication and are worse than published:
+
+-   Nakashima 2007 EM, 30 mg dextromethorphan hydrobromide
+    (capsule/solution), n=24
+-   Schadel 1995 EM, 30 mg dextromethorphan hydrobromide
+    (capsule/solution), n=5
+-   Khalilieh 2018 EM, 30 mg dextromethorphan hydrobromide (cocktail),
+    n=20
+-   Dumond 2010 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=23
+-   Feld 2013 EM, 60 mg dextromethorphan hydrobromide
+    (capsule/solution), n=17
+-   Tennezé 1999 EM, 30 mg dextromethorphan hydrobromide
+    (capsule/solution), n=36
+-   Storelli 2018 NM, 5 mg dextromethorphan base (capsule/solution),
+    n=17, AS=2
+-   Storelli 2018 IM, 5 mg dextromethorphan base (capsule/solution),
+    n=16
+-   Antecip Bioventures EM, 60 mg dextromethorphan hydrobromide multiple
+    dose (capsule_solution), n=10
+-   Armani 2017 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=20
+-   Ermer 2015 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=30
+-   Nyunt 2008 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=12
+-   Sager 2014 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=10
+-   Stage 2018 EM, 30 mg dextromethorphan hydrobromide (cocktail), n=12
+-   Gazzaz 2018 NM, 30 mg dextromethorphan hydrobromide (cocktail),
+    n=30, AS=1.25
+-   Yamazaki 2017 IM, 30 mg dextromethorphan hydrobromide
+    (capsule_solution), n=12, AS=0.5
+-   Zawertailo 2009 NM, 3 mg_kg dextromethorphan hydrobromide
+    (capsule_solution), n=6, AS=2
+
+Comparison of the model created from snapshot downloaded from the
+[repository](https://github.com/Open-Systems-Pharmacology/Dextromethorphan-Model)
+and the model from the Supplementary Material S2 from the
+[publication](https://ascpt.onlinelibrary.wiley.com/doi/10.1002/psp4.12776)
+revealed following differences in the parametrization (issue reported
+<https://github.com/Open-Systems-Pharmacology/Dextromethorphan-Model/issues/5>):
+
+-   Catalytic rate constant $k_{cat}$ for metabolization of
+    dextromethorphan by CYP3A4: 5.65 1/min and 7.94 1/min in snapshot
+    and publication models, respectively
+
+-   Catalytic rate constant $k_{cat}$ for metabolization of dextrorphan
+    by UGT2B15: 37.04 1/min and 1137.98 1/min in snapshot and
+    publication models, respectively.

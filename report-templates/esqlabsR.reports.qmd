@@ -149,8 +149,9 @@ if (params$setTestParameters) {
 
 ## Results
 
-```{r printFigures, results = 'asis', eval = !params$createOnlyStaticContent}
-for (plotName in names(allPlots)){
+!!! When doing it in the loop, no caption is created (Figure xxx: blablabl). Why?
+```{r printFigures, results = 'asis', eval = TRUE}
+for (plotName in sort(names(allPlots))){
   plotName <- gsub(pattern = "\\", "_", plotName, fixed = TRUE)
   plotName <- gsub(pattern = "/", "_", plotName, fixed = TRUE)
   filePath <- file.path(getwd(), "Figures", paste0(plotName, ".png"))
