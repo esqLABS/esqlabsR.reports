@@ -40,7 +40,7 @@ simulateScenarios <- function(projectConfiguration,
       scenarios = scenarios,
       simulationRunOptions = simulationRunOptions
     )
-    saveScenarioResults(simulatedScenariosResults, projectConfiguration, saveResultsFoder)
+    saveScenarioResults(simulatedScenariosResults, projectConfiguration, saveResultsFolder)
   }
 
   # Return simulated scenarios

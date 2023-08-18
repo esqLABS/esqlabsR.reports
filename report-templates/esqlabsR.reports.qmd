@@ -151,7 +151,16 @@ if (params$setTestParameters) {
 
 !!! When doing it in the loop, no caption is created (Figure xxx: blablabl). Why?
 ```{r printFigures, results = 'asis', eval = TRUE}
-for (plotName in sort(names(allPlots))){
+if (params$createOnlyStaticContent) {
+  fileNames <- list.files(path = file.path(getwd(), "Figures"),
+                          pattern = "*.PNG",
+                          full.names = FALSE)
+  plotNames <- tools::file_path_sans_ext(fileNames)
+} else {
+  plotNames <- sort(names(allPlots))
+}
+
+for (plotName in plotNames){
   plotName <- gsub(pattern = "\\", "_", plotName, fixed = TRUE)
   plotName <- gsub(pattern = "/", "_", plotName, fixed = TRUE)
   filePath <- file.path(getwd(), "Figures", paste0(plotName, ".png"))
