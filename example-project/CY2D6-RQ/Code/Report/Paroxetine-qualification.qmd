@@ -2,22 +2,23 @@
 title: "Paroxetine qualification report"
 subtitle: "" # Subtitle of the document. May be left empty
 author: "esqlabs GmbH"
-date: "`r Sys.Date()`"
+date: "now"
+date-format: "YYYY-MM-DD HH:mm:ss"
 params:
   # If `TRUE`, results will be loaded
-  loadPreSimulatedResults: TRUE
   # Sub-folder where simulated results is located, in case `loadPreSimulatedResults`
   # is `TRUE`. If `NULL`, default results folder as specified in `ProjectConfiguration`
   # is used.
-  loadResultsFolder: "2023-07-23 21-57"
   # Sub-folder where the results will be stored. If NULL, a folder in the "Results"
   # folder with current data name will be created.
-  saveResultsFolder: NULL
   # If TRUE, parameters defined in "InputCode/TestParameters.R" will be applied to all
   # simulations
-  setTestParameters: FALSE
   # If set to TRUE, only static content of the report will be generated,
   # i.e., R code will not be executed
+  loadPreSimulatedResults: TRUE
+  loadResultsFolder: "2023-07-23 21-57"
+  saveResultsFolder: NULL
+  setTestParameters: FALSE
   createOnlyStaticContent: FALSE
 output-file: "Paroxetine qualification report"
 format:
