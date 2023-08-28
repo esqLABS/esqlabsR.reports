@@ -2,7 +2,8 @@
 title: "esqlabsR.report.template" # Title of the document
 subtitle: "" # Subtitle of the document. May be left empty
 author: "esqLABS GmbH"
-date: "`r Sys.Date()`" # How to include time of creation?
+date: "now"
+date-format: "YYYY-MM-DD HH:mm:ss"
 params:
   # If `TRUE`, results will be loaded
   loadPreSimulatedResults: FALSE

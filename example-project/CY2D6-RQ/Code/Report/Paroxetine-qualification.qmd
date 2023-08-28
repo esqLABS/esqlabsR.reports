@@ -2,7 +2,8 @@
 title: "Paroxetine qualification report"
 subtitle: "" # Subtitle of the document. May be left empty
 author: "esqlabs GmbH"
-date: "`r Sys.Date()`"
+date: "now"
+date-format: "YYYY-MM-DD HH:mm:ss"
 params:
   # If `TRUE`, results will be loaded
   loadPreSimulatedResults: TRUE
