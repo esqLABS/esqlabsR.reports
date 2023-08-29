@@ -56,3 +56,7 @@ tests/testthat/Rplots.pdf
 *_.new.png
 .vscode
 *.code-workspace
+.Rdata
+# Render intermediate file extensions
+*.rmarkdown
+*/nul
