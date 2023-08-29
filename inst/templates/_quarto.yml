@@ -1,0 +1,42 @@
+project:
+  title: "esqlabsR.report.template"
+
+date-format: "YYYY-MM-DD HH:mm:ss"
+
+# Execution options
+execute:
+  echo: false # do not show code chunks
+  output: true
+  warning: false # do not print warning
+  cache: false # do not use cache unless specified in chunks
+
+# Output format options
+format:
+  pdf:
+    # table of contents and lists
+    # Caption locations
+    # Other
+    # Figures rendering
+    # Document layout as used by Word reports
+    toc: true # display table of content (TOC)
+    toc-depth: 3 # display three levels in TOC
+    toc-title: Table of Content # override default "Content" TOC title
+    lof: false # Print list of figures?
+    lot: false # Print list of tables?
+    fig-cap-location: bottom # figure captions location
+    tbl-cap-location: bottom # table captions location
+    number-sections: true # add number to sections
+    colorlinks: true # links format
+    fig-pos: "H" # ensure plots don't move to bottom of doc
+    fig-align: center # plots are centered by default
+    geometry:
+      - top=25.4mm
+      - bottom=25.4mm
+      - left=25.4mm
+      - right=25.4mm
+    papersize: A4
+   # fontfamily: "Segoe UI" # Can we use "Segoe UI Light" here?
+
+# Citations options
+link-citations: TRUE
+reference-section-title: "References"
