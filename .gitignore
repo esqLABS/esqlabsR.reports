@@ -60,3 +60,4 @@ tests/testthat/Rplots.pdf
 # Render intermediate file extensions
 *.rmarkdown
 */nul
+docs
