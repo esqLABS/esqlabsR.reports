@@ -1,10 +1,10 @@
 Package: esqlabsR.reports
-Title: What the Package Does (One Line, Title Case)
+Title: Streamlined reporting documents at esqlabs.
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Felix", "Mil", , "felix.mil@esqlabs.com", role = c("aut", "cre"))
+    person("Pavel", "Balazki", , "pavel.balazki@esqlabs.com", role = c("aut"))       
+Description: This package provides an easy way to create standardized, high quality reporting documents.
 License: MIT + file LICENSE
 Suggests: 
     covr,
