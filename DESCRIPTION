@@ -1,9 +1,10 @@
 Package: esqlabsR.reports
 Title: Streamlined reporting documents at esqlabs.
 Version: 0.0.0.9000
-Authors@R: 
-    person("Felix", "Mil", , "felix.mil@esqlabs.com", role = c("aut", "cre"))
-    person("Pavel", "Balazki", , "pavel.balazki@esqlabs.com", role = c("aut"))       
+Authors@R: c(
+    person("Felix", "Mil", , "felix.mil@esqlabs.com", role = c("aut", "cre")),
+    person("Pavel", "Balazki", , "pavel.balazki@esqlabs.com", role = c("aut"))
+  ) 
 Description: This package provides an easy way to create standardized, high quality reporting documents.
 License: MIT + file LICENSE
 Suggests: 
