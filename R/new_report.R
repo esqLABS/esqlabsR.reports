@@ -5,7 +5,6 @@
 #' @param subtitle the subtitle of the report. empty by default.
 #' @param author the name of the author(s). "esqlabs Gmbh" by default.
 #' @param datetime the date time that will appear on the report in "YYYY-MM-DD HH:MM:SS" format. default to time of generation of the report.
-
 #'
 #' @export
 #'
