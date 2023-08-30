@@ -5,7 +5,7 @@ edit_yaml <- function(file_path, args) {
   new_yaml <- original_yaml
 
   for (arg in names(args)) {
-    if(!is.na(arg)){
+    if(!is.na(args[[arg]])){
       new_yaml[[arg]] <- args[[arg]]
     }
   }

@@ -25,7 +25,7 @@ new_report <- function(report_title, path = NA, subtitle = NA, author = NA, date
   args <- list(title = report_title,
                subtitle = subtitle,
                author = author,
-               datetime = datetime)
+               date = datetime)
 
   edit_yaml(report_fullpath, args)
 
