@@ -1,0 +1,26 @@
+Package: esqlabsR.reports
+Title: Streamlined reporting documents at esqlabs.
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Felix", "Mil", , "felix.mil@esqlabs.com", role = c("aut", "cre")),
+    person("Pavel", "Balazki", , "pavel.balazki@esqlabs.com", role = c("aut")),
+    person("esqLABS Gmbh", role = c("cph", "fnd"))
+  ) 
+Description: This package provides an easy way to create standardized, high quality reporting documents.
+License: MIT + file LICENSE
+Suggests: 
+    covr,
+    testthat (>= 3.0.0),
+    withr (>= 2.5.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+URL: https://esqlabs.github.io/esqlabsR.reports/
+Imports: 
+    fs (>= 1.6.3),
+    glue (>= 1.6.2)
+Remotes:  
+    tidyverse/glue,
+    r-lib/withr,
+    r-lib/fs
