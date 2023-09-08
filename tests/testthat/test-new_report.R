@@ -7,6 +7,7 @@ test_that("initializing new report works with default", {
   expect_true(file.exists(file.path(tmp_dir, "test_report","_quarto.yml")))
   # name of the report file should have been replaced by report_title
   expect_true(file.exists(file.path(tmp_dir, "test_report","test_report.qmd")))
+  expect_true(file.exists(file.path(tmp_dir, "test_report","test_report.Rproj")))
   # title of the report should have been replaced by report_title
   expect_equal(readLines(file.path(tmp_dir, "test_report", "test_report.qmd"))[2], "title: test_report")
 })
