@@ -20,10 +20,11 @@ URL: https://esqlabs.github.io/esqlabsR.reports/
 Imports: 
     fs (>= 1.6.3),
     glue (>= 1.6.2),
+    rstudioapi (>= 0.14),
     yaml (>= 2.3.7)
 Remotes:  
     tidyverse/glue,
     r-lib/withr,
     r-lib/fs,
-    vubiostat/r-yaml
-
+    vubiostat/r-yaml,
+    rstudio/rstudioapi

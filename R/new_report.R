@@ -10,14 +10,19 @@
 #'
 #' @examples
 #' new_report("my_report", "report_folder/")
-new_report <- function(report_title, path = NA, subtitle = NA, author = NA, datetime = NA) {
+new_report <- function(report_title, path = "Reports/", subtitle = NA, author = NA, datetime = NA) {
 
   template_dir <- system.file("templates", package = "esqlabsR.reports")
   target_dir <- file.path(path, report_title)
+  project_filename <- glue::glue("{report_title}.Rproj")
+  project_fullpath <- file.path(target_dir, project_filename)
   report_filename <-  glue::glue("{report_title}.qmd")
   report_fullpath <- file.path(target_dir, report_filename)
 
   fs::dir_copy(path = template_dir, new_path = target_dir)
+
+  file.rename(file.path(target_dir, "template.Rproj"),
+              project_fullpath)
 
   file.rename(file.path(target_dir, "template.qmd"),
               report_fullpath)
@@ -28,6 +33,10 @@ new_report <- function(report_title, path = NA, subtitle = NA, author = NA, date
                date = datetime)
 
   edit_yaml(report_fullpath, args)
+
+  if(interactive()){
+    rstudioapi::openProject(project_fullpath)
+  }
 
 }
 
