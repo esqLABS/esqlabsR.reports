@@ -32,6 +32,7 @@ format:
       - left=25.4mm
       - right=25.4mm
     papersize: A4
+    df-print: kable
    # fontfamily: "Segoe UI" # Can we use "Segoe UI Light" here?
 
 # Citations options
