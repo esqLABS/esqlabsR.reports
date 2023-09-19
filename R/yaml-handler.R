@@ -1,6 +1,6 @@
-edit_yaml <- function(file_path, args) {
+editYaml <- function(file_path, args) {
 
-  original_yaml <- extract_yaml(text = readLines(file_path))
+  original_yaml <- extractYaml(text = readLines(file_path))
 
   new_yaml <- original_yaml
 
@@ -10,10 +10,8 @@ edit_yaml <- function(file_path, args) {
     }
   }
 
-  replace_yaml(file_path = file_path,
-               new_yaml =  new_yaml)
-
-
+  replaceYaml(file_path = file_path,
+              new_yaml =  new_yaml)
 
 }
 
@@ -25,9 +23,9 @@ edit_yaml <- function(file_path, args) {
 #' @return a list representing the yaml that can be exported back to yaml format
 #'
 #' @examples
-extract_yaml <- function(text) {
+extractYaml <- function(text) {
 
-  yaml_lines_index <- get_yaml_start_end(text = text)
+  yaml_lines_index <- getYamlStartEnd(text = text)
 
   yaml <- yaml::read_yaml(text = text[yaml_lines_index[1]:yaml_lines_index[2]])
 
@@ -43,11 +41,11 @@ extract_yaml <- function(text) {
 #' @export
 #'
 #' @examples
-replace_yaml <- function(file_path, new_yaml) {
+replaceYaml <- function(file_path, new_yaml) {
 
   text <- readLines(file_path)
 
-  yaml_start_end <- get_yaml_start_end(text = text, only_content = FALSE)
+  yaml_start_end <- getYamlStartEnd(text = text, only_content = FALSE)
 
   text_without_yaml <- text[-c(yaml_start_end[1]:yaml_start_end[2])]
 
@@ -57,7 +55,6 @@ replace_yaml <- function(file_path, new_yaml) {
                           text_without_yaml)
 
   writeLines(text_with_new_yaml, file_path)
-
 
 }
 
@@ -71,7 +68,7 @@ replace_yaml <- function(file_path, new_yaml) {
 #' @export
 #'
 #' @examples
-get_yaml_start_end <- function(text, only_content = TRUE) {
+getYamlStartEnd <- function(text, only_content = TRUE) {
   yaml_delimiters_index <- which(text == "---")
 
   if (only_content) {

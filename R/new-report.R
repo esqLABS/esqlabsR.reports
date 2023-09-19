@@ -9,10 +9,10 @@
 #' @export
 #'
 #' @examples
-#' new_report("my_report", "report_folder/")
-new_report <- function(report_title, path = "Reports/", subtitle = NA, author = NA, datetime = NA) {
+#' newReport("my_report", "report_folder/")
+newReport <- function(report_title, path = "Reports/", subtitle = NA, author = NA, datetime = NA) {
 
-  template_dir <- system.file("templates", package = "esqlabsR.reports")
+  template_dir <- system.file("templates/template", package = "esqlabsR.reports")
   target_dir <- file.path(path, report_title)
   project_filename <- glue::glue("{report_title}.Rproj")
   project_fullpath <- file.path(target_dir, project_filename)
