@@ -2,6 +2,7 @@
 #'
 #' @param file_name a string that represent the name of the report that will be created.
 #' @param path a string that represent the path where to create the report.
+#' @param template one string (either `report` or `tutorial`) representing the type of template to initialize.
 #' @param subtitle the subtitle of the report. empty by default.
 #' @param author the name of the author(s). "esqlabs Gmbh" by default.
 #' @param datetime the date time that will appear on the report in "YYYY-MM-DD HH:MM:SS" format. default to time of generation of the report.
@@ -10,9 +11,10 @@
 #'
 #' @examples
 #' newReport("my_report", "report_folder/")
-newReport <- function(report_title, path = "Reports/", subtitle = NA, author = NA, datetime = NA) {
+newReport <- function(report_title, path = "Reports/", template = "report", subtitle = NA, author = NA, datetime = NA) {
 
-  template_dir <- system.file("templates/template", package = "esqlabsR.reports")
+
+  template_dir <- system.file(paste0("templates/", template), package = "esqlabsR.reports")
   target_dir <- file.path(path, report_title)
   project_filename <- glue::glue("{report_title}.Rproj")
   project_fullpath <- file.path(target_dir, project_filename)
@@ -32,7 +34,7 @@ newReport <- function(report_title, path = "Reports/", subtitle = NA, author = N
                author = author,
                date = datetime)
 
-  edit_yaml(report_fullpath, args)
+  editYaml(report_fullpath, args)
 
   if(interactive()){
     rstudioapi::openProject(project_fullpath)
