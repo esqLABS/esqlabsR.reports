@@ -1,47 +1,55 @@
 main <- function(params) {
 
-  source(file = "scripts/utils.R")
+  # Load libraries
+  library(esqlabsR)
 
-  myProjectConfiguration <- initEsqlabsR(projectConfigurationPath = params$projectConfigurationFile)
+  # Initialize project configuration
+  projectConfiguration <- esqlabsR::createDefaultProjectConfiguration(path = params$projectConfigurationFile)
 
-  scenarioNames <- NULL
-
-  scenarioResults <- simulateScenarios(
-    projectConfiguration = myProjectConfiguration,
-    loadPreSimulatedResults = params$loadPreSimulatedResults,
-    setTestParameters = params$setTestParameters,
-    scenarioNames = scenarioNames,
-    loadResultsFolder = params$loadResultsFolder,
-    saveResultsFolder = params$saveResultsFolder
+  # Setup scenarios
+  scenarioConfigurations <- readScenarioConfigurationFromExcel(
+    scenarioNames = "TestScenario",
+    projectConfiguration = projectConfiguration
   )
 
-  observedData <- esqlabsR::loadObservedDataFromPKML(myProjectConfiguration)
 
-  # Or load from excel
-  dataSheets <- c("Sheet 1")
+  # Load or Run Simulation
+  if (params$loadPreSimulatedResults) {
+    simulatedScenariosResults <-
+      loadScenarioResults(scenarioNames = names(scenarioConfigurations),
+                          resultsFolder = params$resultsFolder
+      )
 
-  observedData <- esqlabsR::loadObservedData(
-    projectConfiguration = myProjectConfiguration,
-    sheets = dataSheets
-  )
+    simulatedScenarios <-  simulatedScenariosResults
 
-  plotGridNames <- NULL
-  allPlots <- createPlotsFromExcel(
-    simulatedScenarios = scenarioResults$simulatedScenarios,
-    observedData = observedData,
-    projectConfiguration = myProjectConfiguration,
-    plotGridNames = plotGridNames
-  )
+  } else {
+    scenarios <- createScenarios(scenarioConfigurations = scenarioConfigurations)
 
-  # Export plots to png
-  #Create export configuration that will be used for exporting plots.
-  exportConfiguration <- createEsqlabsExportConfiguration(myProjectConfiguration)
-  # Figures should be saved in the same folder as the location of the report
-  # plus subfolder "Figures"
-  exportConfiguration$path <- params$saveFiguresFolder
-  # Export each created plot
-  for (plotName in names(allPlots)){
-    plot <- allPlots[[plotName]]
+    simulatedScenariosResults <- runScenarios(
+      scenarios = scenarios
+    )
+    saveScenarioResults(simulatedScenariosResults, projectConfiguration, params$resultsFolder)
+
+    simulatedScenarios <-  simulatedScenariosResults
+  }
+
+
+  # Load observed data
+  dataSheets <- "Laskin 1982.Group A"
+  observedData <- loadObservedData(projectConfiguration = projectConfiguration, sheets = dataSheets)
+
+  # Generate plots
+  plots <- createPlotsFromExcel(simulatedScenarios = simulatedScenarios,
+                                observedData = observedData,
+                                projectConfiguration = projectConfiguration)
+
+  # Setup plot export configuration
+  exportConfiguration <- createEsqlabsExportConfiguration(projectConfiguration)
+  exportConfiguration$path <- params$figuresFolder
+
+  # Export each plot
+  for (plotName in names(plots)){
+    plot <- plots[[plotName]]
     # Replace "\" and "/" by "_" so the file name does not result in folders
     plotName <- gsub(pattern = "\\", "_", plotName, fixed = TRUE)
     plotName <- gsub(pattern = "/", "_", plotName, fixed = TRUE)
@@ -49,6 +57,7 @@ main <- function(params) {
     # Save plot
     exportConfiguration$savePlot(plot)
   }
+
 }
 
 
