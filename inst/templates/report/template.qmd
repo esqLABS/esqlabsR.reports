@@ -7,7 +7,8 @@ params:
   runMainScript: yes
   loadPreSimulatedResults: yes
   projectConfigurationFile: ../../../ProjectConfiguration.xlsx
-  resultsFolder: data/
+  resultsFolder: data/ # set it to null if you want to use the path defined in ProjectConfiguration
+  resultsSubFolder: null # set this if data is stored in a subfolder in resultsFolder
   figuresFolder: figures/
 
 ---

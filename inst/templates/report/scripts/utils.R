@@ -1,4 +1,4 @@
-initEsqlabsR <- function(projectConfigurationPath){
+initEsqlabsR <- function(projectConfigurationPath) {
   library(esqlabsR)
 
   projectConfiguration <- esqlabsR::createDefaultProjectConfiguration(path = projectConfigurationPath)
@@ -24,7 +24,7 @@ simulateScenarios <- function(projectConfiguration,
   # Adjust simulation run options, if necessary.
   # E.g. disable check for negative values if required
   simulationRunOptions <- SimulationRunOptions$new()
-  #simulationRunOptions$checkForNegativeValues <- FALSE
+  # simulationRunOptions$checkForNegativeValues <- FALSE
 
   customParams <- NULL
   # Apply parameters defined in "InputCoode/TestParameters.R"
@@ -72,3 +72,14 @@ getTestParameters <- function(params) {
   return(list(paths = paths, values = values, units = units))
 }
 
+getResultsFolder <- function(projectConfiguration, resultsFolder, resultsSubFolder) {
+  if (is.null(resultsFolder)) {
+    resultsFolder <- projectConfiguration$outputFolder
+  } else {
+    resultsFolder <- resultsFolder
+  }
+
+  if (!is.null(resultsSubFolder)) {
+    resultsFolder <- file.path(resultsFolder, resultsSubFolder)
+  }
+}

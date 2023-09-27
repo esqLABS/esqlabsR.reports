@@ -1,5 +1,4 @@
 main <- function(params) {
-
   # Load libraries
   library(esqlabsR)
 
@@ -14,23 +13,25 @@ main <- function(params) {
 
 
   # Load or Run Simulation
+  resultsFolder <- getResultsFolder(projectConfiguration, params$resultsFolder, params$resultsSubFolder)
+
   if (params$loadPreSimulatedResults) {
     simulatedScenariosResults <-
-      loadScenarioResults(scenarioNames = names(scenarioConfigurations),
-                          resultsFolder = params$resultsFolder
+      loadScenarioResults(
+        scenarioNames = names(scenarioConfigurations),
+        resultsFolder = resultsFolder
       )
 
-    simulatedScenarios <-  simulatedScenariosResults
-
+    simulatedScenarios <- simulatedScenariosResults
   } else {
     scenarios <- createScenarios(scenarioConfigurations = scenarioConfigurations)
 
     simulatedScenariosResults <- runScenarios(
       scenarios = scenarios
     )
-    saveScenarioResults(simulatedScenariosResults, projectConfiguration, params$resultsFolder)
+    saveScenarioResults(simulatedScenariosResults, projectConfiguration, resultsFolder)
 
-    simulatedScenarios <-  simulatedScenariosResults
+    simulatedScenarios <- simulatedScenariosResults
   }
 
 
@@ -39,16 +40,18 @@ main <- function(params) {
   observedData <- loadObservedData(projectConfiguration = projectConfiguration, sheets = dataSheets)
 
   # Generate plots
-  plots <- createPlotsFromExcel(simulatedScenarios = simulatedScenarios,
-                                observedData = observedData,
-                                projectConfiguration = projectConfiguration)
+  plots <- createPlotsFromExcel(
+    simulatedScenarios = simulatedScenarios,
+    observedData = observedData,
+    projectConfiguration = projectConfiguration
+  )
 
   # Setup plot export configuration
   exportConfiguration <- createEsqlabsExportConfiguration(projectConfiguration)
   exportConfiguration$path <- params$figuresFolder
 
   # Export each plot
-  for (plotName in names(plots)){
+  for (plotName in names(plots)) {
     plot <- plots[[plotName]]
     # Replace "\" and "/" by "_" so the file name does not result in folders
     plotName <- gsub(pattern = "\\", "_", plotName, fixed = TRUE)
@@ -57,8 +60,4 @@ main <- function(params) {
     # Save plot
     exportConfiguration$savePlot(plot)
   }
-
 }
-
-
-
