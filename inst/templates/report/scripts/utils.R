@@ -74,7 +74,7 @@ getTestParameters <- function(params) {
 
 getResultsFolder <- function(projectConfiguration, resultsFolder, resultsSubFolder) {
   if (is.null(resultsFolder)) {
-    resultsFolder <- projectConfiguration$outputFolder
+    resultsFolder <- file.path(projectConfiguration$outputFolder, "SimulationResults")
   } else {
     resultsFolder <- resultsFolder
   }
