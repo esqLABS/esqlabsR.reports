@@ -1,0 +1,99 @@
+---
+title: Report Template
+subtitle: ''
+author: esqLABS GmbH
+date: now
+params:
+  runMainScript: yes
+  loadPreSimulatedResults: yes
+  projectConfigurationFile: ../../../ProjectConfiguration.xlsx
+  resultsFolder: data/ # set it to null if you want to use the path defined in ProjectConfiguration
+  resultsSubFolder: null # set this if data is stored in a subfolder in resultsFolder
+  figuresFolder: figures/
+
+---
+
+\newpage
+
+
+```{r message=FALSE, eval = params$runMainScript}
+# Import Libraries
+library("readr")
+
+
+source("scripts/main.R")
+main(params = params)
+```
+
+
+# Notes
+
+::: {.callout-note}
+```{r, results='asis'}
+if (params$loadPreSimulatedResults) {
+  cat("This report has been created with simulation results loaded from results folder ", params$resultsFolder, ".")
+} else {
+  cat("This report has been created by running the simulations.")
+}
+```
+:::
+
+
+\newpage
+
+# Introduction
+
+This document is a template for typical simulation projects.
+
+{{< include texts/introduction.md >}}
+
+# Methods
+
+## Software
+
+## Process
+
+## Data
+
+
+# Results
+
+## Tables
+
+```{r}
+#| tbl-cap: An example table.
+head(read_csv("data/TestScenario.csv"))
+```
+
+
+## Figures
+
+
+
+![An example plot](figures/Aciclovr2.PNG)
+
+![An example plotGrid](figures/Aciclovir.PNG)
+
+# Conclusion
+
+
+
+\newpage
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
+# Lists {.unnumbered}
+
+\listoffigures
+
+\listoftables
+
+# Session Information {.unnumbered}
+
+```{r}
+sessionInfo()
+```
+
+
